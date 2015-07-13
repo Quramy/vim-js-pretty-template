@@ -3,7 +3,6 @@
 " AUTHOR: Quramy <yosuke.kurami@gmail.com>
 "============================================================================
 
-
 scriptencoding utf-8
 
 let s:save_cpo = &cpo
@@ -55,6 +54,14 @@ function! jspre#applySyntax(filetype)
         \ keepend contains=@'.group
 endfunction
 
+function! jspre#loadAndApply(...)
+  if a:0 == 0
+    return
+  endif
+  let l:ft = a:1
+  call jspre#loadOtherSyntax(l:ft)
+  call jspre#applySyntax(l:ft)
+endfunction
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
