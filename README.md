@@ -13,6 +13,8 @@ var template = `
 `;
 ```
 
+![capture](capture.png)
+
 Template Strings is available with [Babel](https://babeljs.io/), [google/traceur-compile](https://github.com/google/traceur-compiler) and [TypeScript](http://www.typescriptlang.org/).
 
 ## How to install 
