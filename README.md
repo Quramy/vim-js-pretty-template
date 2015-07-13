@@ -1,8 +1,6 @@
 # vim-js-pretty-template
 
-A Vim plgin to apply other filetype's syntax to JavaScript [Template Strings](http://tc39wiki.calculist.org/es6/template-strings/).
-
-This plugin highlights ES6 Template Strings with other filetype's syntax rule which you want.
+A Vim plgin to highlight JavaScript's [Template Strings](http://tc39wiki.calculist.org/es6/template-strings/) contents in other FileType syntax rule which you want.
 
 ```js
 var template = `
@@ -73,7 +71,7 @@ If you want to apply automatically, you can append the following to your `.vimrc
 autocmd FileType javascript JsPreTmpl html
 ```
 
-### Alternative JavaScript user
+### For alternative JavaScript users
 
 vim-js-pretty-template is also compatible for TypeScript and CoffeeScript.
 
@@ -83,18 +81,16 @@ vim-js-pretty-template is also compatible for TypeScript and CoffeeScript.
 For example:
 
 ```vim
-autocmd FileType typescript JsPreTmpl scss
+autocmd FileType typescript JsPreTmpl markdown
 ```
 
 then the following template string is highlighted:
 
 ```typescript
 var tmpl: string = `
-// highlighted in SCSS way
-body.main {
-  color: red;
-}
-`
+## Title
+*Highlighted in Markdown way.*
+`;
 ```
 
 or for example:
