@@ -20,7 +20,7 @@ function! s:tmplSyntaxRegion(filetype)
   return 'markdownCodeRegion'.ft
 endfunction
 
-function! jspre#loadOtherSyntax(filetype)
+function! jspretmpl#loadOtherSyntax(filetype)
   let group = s:tmplSyntaxGroup(a:filetype)
 
   " syntax save
@@ -41,26 +41,34 @@ function! jspre#loadOtherSyntax(filetype)
   return group
 endfunction
 
-function! jspre#applySyntax(filetype)
+function! jspretmpl#applySyntax(filetype)
+  if &ft == 'javascript' || &ft == 'typescript'
+    let regexp_start = '`'
+    let regexp_skip = '\\`'
+    let regexp_end = '`'
+
+    let group_def = 'start="'.regexp_start.'" skip="'.regexp_skip.'" end="'.regexp_end.'"'
+  elseif &ft == 'coffee'
+    let regexp_start = '"""'
+    let regexp_end = '"""'
+    let group_def = 'start=+'.regexp_start.'+ end=+'.regexp_end.'+'
+  else
+    return
+  endif
+
   let group = s:tmplSyntaxGroup(a:filetype)
   let region = s:tmplSyntaxRegion(a:filetype)
 
-  let regexp_start = "`\\s*$"
-  let regexp_end = "^\\s*`"
-
-  execute 'syntax region '.region.'
-        \ matchgroup=markdownCodeDelimiter
-        \ start="'.regexp_start.'" end="'.regexp_end.'"
-        \ keepend contains=@'.group
+  execute 'syntax region '.region.' matchgroup=markdownCodeDelimiter '.group_def.' keepend contains=@'.group
 endfunction
 
-function! jspre#loadAndApply(...)
+function! jspretmpl#loadAndApply(...)
   if a:0 == 0
     return
   endif
   let l:ft = a:1
-  call jspre#loadOtherSyntax(l:ft)
-  call jspre#applySyntax(l:ft)
+  call jspretmpl#loadOtherSyntax(l:ft)
+  call jspretmpl#applySyntax(l:ft)
 endfunction
 
 let &cpo = s:save_cpo
