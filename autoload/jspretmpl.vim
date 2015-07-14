@@ -42,24 +42,28 @@ function! jspretmpl#loadOtherSyntax(filetype)
 endfunction
 
 function! jspretmpl#applySyntax(filetype)
+  let group = s:tmplSyntaxGroup(a:filetype)
+  let region = s:tmplSyntaxRegion(a:filetype)
   if &ft == 'javascript' || &ft == 'typescript'
     let regexp_start = '`'
     let regexp_skip = '\\`'
     let regexp_end = '`'
-
     let group_def = 'start="'.regexp_start.'" skip="'.regexp_skip.'" end="'.regexp_end.'"'
+    execute 'syntax region '.region.' matchgroup=EcmaScriptTemplateStrings '.group_def.' keepend contains=@'.group
   elseif &ft == 'coffee'
     let regexp_start = '"""'
     let regexp_end = '"""'
     let group_def = 'start=+'.regexp_start.'+ end=+'.regexp_end.'+'
+    execute 'syntax region '.region.' matchgroup=CoffeeScriptTemplateStringsDouble '.group_def.' keepend contains=@'.group
+
+    let regexp_start = "'''"
+    let regexp_end = "'''"
+    let group_def = 'start=+'.regexp_start.'+ end=+'.regexp_end.'+'
+    execute 'syntax region '.region.' matchgroup=CoffeeScriptTemplateStringsSingle '.group_def.' keepend contains=@'.group
   else
     return
   endif
 
-  let group = s:tmplSyntaxGroup(a:filetype)
-  let region = s:tmplSyntaxRegion(a:filetype)
-
-  execute 'syntax region '.region.' matchgroup=markdownCodeDelimiter '.group_def.' keepend contains=@'.group
 endfunction
 
 function! jspretmpl#loadAndApply(...)
