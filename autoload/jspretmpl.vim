@@ -47,7 +47,7 @@ function! jspretmpl#applySyntax(filetype)
   let b:jspre_current_ft = a:filetype
   if &ft == 'javascript' || &ft == 'typescript'
     let regexp_start = '`'
-    let regexp_skip = '(\\`|\\})'
+    let regexp_skip = '\\`'
     let regexp_end = '`'
     let group_def = 'start="'.regexp_start.'" skip="'.regexp_skip.'" end="'.regexp_end.'"'
     execute 'syntax region '.region.' matchgroup=EcmaScriptTemplateStrings '.group_def.' keepend contains=@'.group
