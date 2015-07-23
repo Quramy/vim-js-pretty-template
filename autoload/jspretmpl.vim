@@ -12,12 +12,12 @@ set cpo&vim
 
 function! s:tmplSyntaxGroup(filetype)
   let ft = toupper(a:filetype)
-  return 'markdownCodeGroup'.ft
+  return 'JavaScriptPrettyTemplateCodeGroup'.ft
 endfunction
 
 function! s:tmplSyntaxRegion(filetype)
   let ft = toupper(a:filetype)
-  return 'markdownCodeRegion'.ft
+  return 'JavaScriptPrettyCodeRegion'.ft
 endfunction
 
 function! jspretmpl#loadOtherSyntax(filetype)
@@ -44,9 +44,10 @@ endfunction
 function! jspretmpl#applySyntax(filetype)
   let group = s:tmplSyntaxGroup(a:filetype)
   let region = s:tmplSyntaxRegion(a:filetype)
+  let b:jspre_current_ft = a:filetype
   if &ft == 'javascript' || &ft == 'typescript'
     let regexp_start = '`'
-    let regexp_skip = '\\`'
+    let regexp_skip = '(\\`|\\})'
     let regexp_end = '`'
     let group_def = 'start="'.regexp_start.'" skip="'.regexp_skip.'" end="'.regexp_end.'"'
     execute 'syntax region '.region.' matchgroup=EcmaScriptTemplateStrings '.group_def.' keepend contains=@'.group
@@ -73,6 +74,13 @@ function! jspretmpl#loadAndApply(...)
   let l:ft = a:1
   call jspretmpl#loadOtherSyntax(l:ft)
   call jspretmpl#applySyntax(l:ft)
+endfunction
+
+function! jspretmpl#clear()
+  if !exists('b:jspre_current_ft')
+    return
+  endif
+  execute 'syntax clear '.s:tmplSyntaxRegion(b:jspre_current_ft)
 endfunction
 
 let &cpo = s:save_cpo

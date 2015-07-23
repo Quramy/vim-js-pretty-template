@@ -13,6 +13,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 command! -nargs=1 -complete=filetype JsPreTmpl : call jspretmpl#loadAndApply(<f-args>)
+command! JsPreTmplClear : call jspretmpl#clear()
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
