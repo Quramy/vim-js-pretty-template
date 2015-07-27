@@ -3,15 +3,16 @@
 A Vim plgin to highlight JavaScript's [Template Strings](http://tc39wiki.calculist.org/es6/template-strings/) contents in other FileType syntax rule which you want.
 
 ```js
-var template = `
-  <!-- highlighted in HTML's way -->
-  <html>
-    <body id="main"></body>
-  </html>
+var htmlTempl = `
+<div class="row">
+  <div class="col-md-12">
+    <span>{{ctrl.message}}</span>
+  </div>
+</div>
 `;
 ```
 
-![capture](capture.png)
+![capture](screencast01.gif)
 
 Template Strings is available with [Babel](https://babeljs.io/), [google/traceur-compile](https://github.com/google/traceur-compiler) and [TypeScript](http://www.typescriptlang.org/).
 
