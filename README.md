@@ -78,6 +78,7 @@ vim-js-pretty-template is also compatible for TypeScript and CoffeeScript.
 
 * TypeScript
 * CoffeeScript
+* Dart
 
 For example:
 
