@@ -55,7 +55,7 @@ function! jspretmpl#applySyntax(filetype, startCondition)
     let regexp_end = '`'
     let group_def = 'start="'.regexp_start.'" skip="'.regexp_skip.'" end="'.regexp_end.'"'
     execute 'syntax region '.region.' matchgroup=EcmaScriptTemplateStrings '.group_def.' keepend contains=@'.group
-  elseif &ft == 'coffee' &ft == 'dart'
+  elseif &ft == 'coffee' || &ft == 'dart'
     let regexp_start = '"""'
     let regexp_end = '"""'
     let group_def = 'start=+'.regexp_start.'+ end=+'.regexp_end.'+'
