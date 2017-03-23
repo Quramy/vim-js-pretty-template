@@ -41,17 +41,21 @@ function! jspretmpl#loadOtherSyntax(filetype)
   return group
 endfunction
 
-function! jspretmpl#applySyntax(filetype)
+function! jspretmpl#applySyntax(filetype, startCondition)
   let group = s:tmplSyntaxGroup(a:filetype)
   let region = s:tmplSyntaxRegion(a:filetype)
   let b:jspre_current_ft = a:filetype
   if &ft == 'javascript' || &ft == 'typescript'
-    let regexp_start = '`'
+    if strlen(a:startCondition)
+      let regexp_start = a:startCondition
+    else
+      let regexp_start = '`'
+    endif
     let regexp_skip = '\\`'
     let regexp_end = '`'
     let group_def = 'start="'.regexp_start.'" skip="'.regexp_skip.'" end="'.regexp_end.'"'
     execute 'syntax region '.region.' matchgroup=EcmaScriptTemplateStrings '.group_def.' keepend contains=@'.group
-  elseif &ft == 'coffee'
+  elseif &ft == 'coffee' &ft == 'dart'
     let regexp_start = '"""'
     let regexp_end = '"""'
     let group_def = 'start=+'.regexp_start.'+ end=+'.regexp_end.'+'
@@ -73,7 +77,11 @@ function! jspretmpl#loadAndApply(...)
   endif
   let l:ft = a:1
   call jspretmpl#loadOtherSyntax(l:ft)
-  call jspretmpl#applySyntax(l:ft)
+  call jspretmpl#applySyntax(l:ft, '')
+  " call jspretmpl#loadOtherSyntax('css')
+  " call jspretmpl#applySyntax('css', 'styles: \[\s*\n*`')
+  " call jspretmpl#loadOtherSyntax('graphql')
+  " call jspretmpl#applySyntax('graphql', 'Relay\.QL\s*`')
 endfunction
 
 function! jspretmpl#clear()
