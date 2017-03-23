@@ -74,11 +74,11 @@ autocmd FileType javascript JsPreTmpl html
 
 ### For alternative JavaScript users
 
-vim-js-pretty-template is also compatible for TypeScript and CoffeeScript.
+vim-js-pretty-template is also compatible for TypeScript, Dart and CoffeeScript.
 
 * TypeScript
-* CoffeeScript
 * Dart
+* CoffeeScript
 
 For example:
 
@@ -99,18 +99,18 @@ var tmpl: string = `
 or for example:
 
 ```vim
-autocmd FileType coffee JsPreTmpl xml
+autocmd FileType dart JsPreTmpl xml
 ```
 
 then: 
 
-```coffee
-tmpl = """
+```dart
+var tmpl = """
 <!-- highlighted in XML way -->
 <svg:svg xmlns:svg="http://www.w3.org/2000/svg">
   <svg:circle cx="100" cy="100" r="50"></svg:circle>
 </svg:svg>
-"""
+""";
 ```
 
 ## License
