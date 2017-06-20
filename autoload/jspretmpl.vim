@@ -49,7 +49,7 @@ function! jspretmpl#applySyntax(filetype, startCondition)
     if strlen(a:startCondition)
       let regexp_start = a:startCondition
     else
-      let regexp_start = '`'
+      let regexp_start = '\w*`'
     endif
     let regexp_skip = '\\`'
     let regexp_end = '`'
