@@ -51,7 +51,7 @@ function! jspretmpl#applySyntax(filetype, startCondition)
     else
       let regexp_start = '\w*`'
     endif
-    let regexp_skip = '\\`'
+    let regexp_skip = '\(\\`\|\${[^}]*`\|`\(.*\(\${\)\@!.*\)*}\)'
     let regexp_end = '`'
     let group_def = 'start="'.regexp_start.'" skip="'.regexp_skip.'" end="'.regexp_end.'"'
     execute 'syntax region '.region.' matchgroup=EcmaScriptTemplateStrings '.group_def.' keepend contains=@'.group.' containedin=jsTaggedTemplate'
