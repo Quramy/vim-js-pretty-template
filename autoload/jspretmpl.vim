@@ -80,7 +80,7 @@ function! jspretmpl#addRule(filetype, startCondition)
 endfunction
 
 function! jspretmpl#register_tag(tagname, filetype)
-  call jspretmpl#addRule(a:filetype, a:tagname.'\s*`')
+  call jspretmpl#addRule(a:filetype, a:tagname.'`')
 endfunction
 
 function! jspretmpl#loadAndApply(...)
@@ -93,7 +93,11 @@ function! jspretmpl#loadAndApply(...)
   endfor
   let l:ft = a:1
   call jspretmpl#loadOtherSyntax(l:ft)
-  call jspretmpl#applySyntax(l:ft, '')
+  if !len(keys(s:rule_map))
+    call jspretmpl#applySyntax(l:ft, '')
+  else
+    call jspretmpl#applySyntax(l:ft, '`')
+  endif
 endfunction
 
 function! jspretmpl#clear()
