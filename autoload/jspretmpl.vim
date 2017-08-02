@@ -71,17 +71,29 @@ function! jspretmpl#applySyntax(filetype, startCondition)
 
 endfunction
 
+let s:rule_map = {}
+function! jspretmpl#addRule(filetype, startCondition)
+  if !strlen(a:startCondition)
+    return
+  endif
+  let s:rule_map[a:filetype] = a:startCondition
+endfunction
+
+function! jspretmpl#register_tag(tagname, filetype)
+  call jspretmpl#addRule(a:filetype, a:tagname.'\s*`')
+endfunction
+
 function! jspretmpl#loadAndApply(...)
   if a:0 == 0
     return
   endif
+  for k in keys(s:rule_map)
+    call jspretmpl#loadOtherSyntax(k)
+    call jspretmpl#applySyntax(k, s:rule_map[k])
+  endfor
   let l:ft = a:1
   call jspretmpl#loadOtherSyntax(l:ft)
   call jspretmpl#applySyntax(l:ft, '')
-  " call jspretmpl#loadOtherSyntax('css')
-  " call jspretmpl#applySyntax('css', 'styles: \[\s*\n*`')
-  " call jspretmpl#loadOtherSyntax('graphql')
-  " call jspretmpl#applySyntax('graphql', 'Relay\.QL\s*`')
 endfunction
 
 function! jspretmpl#clear()
