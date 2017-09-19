@@ -1,6 +1,6 @@
 # vim-js-pretty-template
 
-A Vim plgin to highlight JavaScript's [Template Strings](http://tc39wiki.calculist.org/es6/template-strings/) contents in other FileType syntax rule which you want.
+A Vim plugin to highlight JavaScript's [Template Strings](http://tc39wiki.calculist.org/es6/template-strings/) contents in other `FileType` syntax rule which you want.
 
 ```js
 var htmlTempl = `
