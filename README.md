@@ -18,6 +18,15 @@ Template Strings is available with [Babel](https://babeljs.io/), [google/traceur
 
 ## How to install
 
+## Vim 8 native plugins
+
+Replace "FOOBAR" with any directory name that you like:
+
+```
+$ mkdir -p ~/.vim/pack/FOOBAR/start/
+$ git clone https://github.com/Quramy/vim-js-pretty-template.git ~/.vim/pack/FOOBAR/start/vim-js-pretty-template
+```
+
 ### Vundle
 
 Place this in your `.vimrc`:
